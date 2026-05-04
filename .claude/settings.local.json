@@ -13,7 +13,8 @@
       "WebFetch(domain:game.3loumao.org)",
       "Bash(git add *)",
       "Bash(git commit *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(curl -sI https://media.contentapi.ea.com/content/dam/apex-legends/common/legends/apex-section-bg-legends-__TRACKED_VAR__-xl.jpg.adapt.1920w.jpg)"
     ]
   }
 }

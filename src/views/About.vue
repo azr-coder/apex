@@ -45,7 +45,8 @@ const stats = [
         <h2 class="as-title">主力英雄</h2>
         <div class="a-legends">
           <div v-for="l in mainLegends" :key="l.name" class="al-card">
-            <div class="alc-img"><img :src="l.banner" :alt="l.name" loading="lazy" /></div>
+            <div v-if="l.banner" class="alc-img"><img :src="l.banner" :alt="l.name" loading="lazy" /></div>
+            <div v-else class="alc-img" :style="{ background: `linear-gradient(135deg, ${l.color}22, ${l.color}08)` }"></div>
             <div class="alc-overlay" :style="{ background: `linear-gradient(0deg, rgba(5,5,8,0.9) 0%, transparent 60%)` }"></div>
             <div class="alc-body">
               <span class="alc-icon" :style="{ color: l.color }">{{ l.icon }}</span>

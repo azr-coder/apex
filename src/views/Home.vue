@@ -2,7 +2,7 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { posts, categories } from '../data/posts'
-import { legends, weapons, HERO_KEY_ART_WIDE, apexMaps } from '../data/game-data'
+import { legends, weapons, RED_GRIT_BG, apexMaps } from '../data/game-data'
 
 const route = useRoute()
 const router = useRouter()
@@ -44,7 +44,7 @@ onUnmounted(() => clearInterval(heroTimer))
   <div class="home-page">
     <!-- ===== HERO ===== -->
     <section class="hero">
-      <div class="hero-img"><img :src="HERO_KEY_ART_WIDE" alt="APEX Legends" loading="eager" /></div>
+      <div class="hero-img"><img :src="RED_GRIT_BG" alt="" loading="eager" /></div>
       <div class="hero-shade"></div>
       <div class="hero-body">
         <div class="hero-pill">APEX LEGENDS MASTERY</div>
@@ -85,7 +85,8 @@ onUnmounted(() => clearInterval(heroTimer))
         </div>
         <div class="legends-grid">
           <div v-for="leg in legends" :key="leg.name" class="lg-card">
-            <div class="lg-img"><img :src="leg.banner" :alt="leg.name" loading="lazy" /></div>
+            <div v-if="leg.banner" class="lg-img"><img :src="leg.banner" :alt="leg.name" loading="lazy" /></div>
+            <div v-else class="lg-img-fb" :style="{ background: `linear-gradient(135deg, ${leg.color}22, ${leg.color}08)` }"></div>
             <div class="lg-overlay" :style="{ background: `linear-gradient(0deg, rgba(5,5,8,0.95) 0%, rgba(5,5,8,0.3) 60%, rgba(5,5,8,0.1) 100%)` }"></div>
             <div class="lg-body">
               <span class="lg-icon" :style="{ color: leg.color }">{{ leg.icon }}</span>
@@ -128,7 +129,9 @@ onUnmounted(() => clearInterval(heroTimer))
         </div>
         <div class="maps-grid">
           <div v-for="m in apexMaps" :key="m.name" class="map-card">
-            <div class="mc-img"><img :src="m.image" :alt="m.nameCN" loading="lazy" /></div>
+            <div class="mc-img" :style="{ background: `linear-gradient(${m.gradient})` }">
+              <span class="mc-label">{{ m.name }}</span>
+            </div>
             <div class="mc-shade"></div>
             <div class="mc-body">
               <h3 class="mc-name">{{ m.nameCN }}</h3>
@@ -317,6 +320,10 @@ onUnmounted(() => clearInterval(heroTimer))
   transition: transform 0.5s;
 }
 
+.lg-img-fb {
+  position: absolute; inset: 0;
+}
+
 .lg-card:hover .lg-img img { transform: scale(1.05); }
 
 .lg-overlay { position: absolute; inset: 0; }
@@ -408,14 +415,19 @@ onUnmounted(() => clearInterval(heroTimer))
   box-shadow: 0 12px 36px rgba(0,0,0,0.5);
 }
 
-.mc-img { position: absolute; inset: 0; }
-.mc-img img {
-  width: 100%; height: 100%;
-  object-fit: cover; object-position: center;
+.mc-img {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
   transition: transform 0.5s;
 }
 
-.map-card:hover .mc-img img { transform: scale(1.05); }
+.mc-label {
+  font-family: var(--font-display);
+  font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.3);
+  letter-spacing: 2px; text-transform: uppercase;
+}
+
+.map-card:hover .mc-img { transform: scale(1.05); }
 
 .mc-shade {
   position: absolute; inset: 0;
