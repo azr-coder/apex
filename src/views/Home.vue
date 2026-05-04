@@ -2,7 +2,7 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { posts, categories } from '../data/posts'
-import { legends, weapons, HERO_KEY_ART } from '../data/game-data'
+import { legends, weapons, HERO_KEY_ART_WIDE, apexMaps } from '../data/game-data'
 
 const route = useRoute()
 const router = useRouter()
@@ -44,7 +44,7 @@ onUnmounted(() => clearInterval(heroTimer))
   <div class="home-page">
     <!-- ===== HERO ===== -->
     <section class="hero">
-      <div class="hero-img"><img :src="HERO_KEY_ART" alt="APEX Legends" loading="eager" /></div>
+      <div class="hero-img"><img :src="HERO_KEY_ART_WIDE" alt="APEX Legends" loading="eager" /></div>
       <div class="hero-shade"></div>
       <div class="hero-body">
         <div class="hero-pill">APEX LEGENDS MASTERY</div>
@@ -120,6 +120,25 @@ onUnmounted(() => clearInterval(heroTimer))
         </div>
       </section>
 
+      <!-- ===== MAPS ===== -->
+      <section v-if="activeCategory === 'all'" class="sec">
+        <div class="sec-head">
+          <h2>战场地图</h2>
+          <p>熟悉每一寸地形，制敌先机</p>
+        </div>
+        <div class="maps-grid">
+          <div v-for="m in apexMaps" :key="m.name" class="map-card">
+            <div class="mc-img"><img :src="m.image" :alt="m.nameCN" loading="lazy" /></div>
+            <div class="mc-shade"></div>
+            <div class="mc-body">
+              <h3 class="mc-name">{{ m.nameCN }}</h3>
+              <span class="mc-size" :class="m.size">{{ m.size === 'xlarge' ? '极大' : m.size === 'large' ? '大型' : m.size === 'medium' ? '中型' : '小型' }}</span>
+              <p class="mc-tip">{{ m.tips }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- ===== POSTS ===== -->
       <section class="sec">
         <div class="sec-head" v-if="activeCategory !== 'all'">
@@ -164,7 +183,7 @@ onUnmounted(() => clearInterval(heroTimer))
 
 .hero-img img {
   width: 100%; height: 100%;
-  object-fit: cover; object-position: center 35%;
+  object-fit: cover; object-position: center 40%;
   animation: fadeInSlow 1.5s ease;
 }
 
@@ -370,6 +389,63 @@ onUnmounted(() => clearInterval(heroTimer))
 .wr-name { font-size: 12px; color: #ddd; font-weight: 500; flex: 1; }
 .wr-type { font-size: 10px; color: #666; }
 
+/* ===== MAPS ===== */
+.maps-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+
+.map-card {
+  position: relative; height: 220px;
+  border-radius: 8px; overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.map-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.5);
+}
+
+.mc-img { position: absolute; inset: 0; }
+.mc-img img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  transition: transform 0.5s;
+}
+
+.map-card:hover .mc-img img { transform: scale(1.05); }
+
+.mc-shade {
+  position: absolute; inset: 0;
+  background: linear-gradient(0deg, rgba(5,5,8,0.9) 0%, transparent 55%);
+}
+
+.mc-body {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 12px 14px;
+}
+
+.mc-name { font-size: 15px; font-weight: 700; color: #fff; margin: 0 0 2px; }
+
+.mc-size {
+  display: inline-block; font-size: 10px;
+  padding: 1px 6px; border-radius: 2px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.mc-size.xlarge { background: rgba(255,94,26,0.2); color: #FF5E1A; }
+.mc-size.large { background: rgba(255,165,0,0.2); color: #FFA500; }
+.mc-size.medium { background: rgba(0,180,255,0.15); color: #00BFFF; }
+.mc-size.small { background: rgba(100,200,100,0.15); color: #4CAF50; }
+
+.mc-tip {
+  font-size: 11px; color: #aaa; margin: 0;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+
 /* ===== POST CARDS ===== */
 .posts-grid {
   display: grid;
@@ -429,12 +505,14 @@ onUnmounted(() => clearInterval(heroTimer))
   .hero-legend { display: none; }
   .legends-grid { grid-template-columns: repeat(2, 1fr); }
   .weapon-cols { grid-template-columns: repeat(2, 1fr); }
+  .maps-grid { grid-template-columns: repeat(3, 1fr); }
   .posts-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 560px) {
   .legends-grid { grid-template-columns: 1fr; }
   .weapon-cols { grid-template-columns: 1fr; }
+  .maps-grid { grid-template-columns: repeat(2, 1fr); }
   .hero-nums { flex-wrap: wrap; }
 }
 </style>

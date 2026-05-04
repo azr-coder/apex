@@ -30,9 +30,44 @@ function bannerImg(name: string) { return `${LEGEND_BANNER}-${name}-xl.jpg.adapt
 // Official hero key art (group shot) — used as hero section background
 export const HERO_KEY_ART = `${EA_CDN}/common/apex-hero-medium-keyart-left-7x2-xl.jpg.adapt.crop7x2.1920w.jpg`
 
+// Alternative key art crops for visual variety
+export const HERO_KEY_ART_WIDE = `${EA_CDN}/common/apex-hero-large-keyart-16x9-xl.jpg.adapt.crop16x9.1920w.jpg`
+
 // Texture backgrounds from official site
 export const TEXTURE_BG = `${EA_CDN}/common/apex-section-bg-beige-texture-xl.jpg.adapt.1920w.jpg`
 export const RED_GRIT_BG = `${EA_CDN}/common/apex-section-bg-red-grit-texture-xl.jpg.adapt.1920w.jpg`
+export const DARK_BG = `${EA_CDN}/common/apex-section-bg-dark-texture-xl.jpg.adapt.1920w.jpg`
+
+// Legend grid tile images (portrait squares, good for compact displays)
+export function legendTile(name: string) {
+  return `${EA_CDN}/common/legends/apex-grid-tile-legends-${name}.png.adapt.crop16x9.png`
+}
+
+// Map images from Fandom wiki CDN (community-maintained loading screens)
+export const MAP_IMAGES = {
+  kingsCanyon: 'https://static.wikia.nocookie.net/apexlegends/images/8/8c/Kings_Canyon_MU4.png',
+  worldsEdge: 'https://static.wikia.nocookie.net/apexlegends/images/7/7e/World%27s_Edge_MU3.png',
+  olympus: 'https://static.wikia.nocookie.net/apexlegends/images/2/2f/Olympus_MU1.png',
+  stormPoint: 'https://static.wikia.nocookie.net/apexlegends/images/d/d7/Storm_Point.png',
+  brokenMoon: 'https://static.wikia.nocookie.net/apexlegends/images/9/9b/Broken_Moon.png',
+}
+
+export interface ApexMap {
+  name: string
+  nameCN: string
+  image: string
+  size: 'small' | 'medium' | 'large' | 'xlarge'
+  desc: string
+  tips: string
+}
+
+export const apexMaps: ApexMap[] = [
+  { name: 'Kings Canyon', nameCN: '诸王峡谷', image: MAP_IMAGES.kingsCanyon, size: 'medium', desc: 'APEX最初的战场，密集的工业建筑和峡谷地形', tips: '注意高处，屋顶老六最多' },
+  { name: "World's Edge", nameCN: '世界边缘', image: MAP_IMAGES.worldsEdge, size: 'large', desc: '熔岩与冰雪交织，缆车系统提供垂直机动', tips: '利用缆车快速转移，熔岩裂缝即死' },
+  { name: 'Olympus', nameCN: '奥林匹斯', image: MAP_IMAGES.olympus, size: 'large', desc: '悬浮云端的未来都市，开阔视野和长距离交火', tips: '相位传送门可用于快速逃生，注意地图边缘' },
+  { name: 'Storm Point', nameCN: '风暴点', image: MAP_IMAGES.stormPoint, size: 'xlarge', desc: '热带海岛，丛林密布，重力大炮快速移动', tips: '重力大炮飞行中可改变方向' },
+  { name: 'Broken Moon', nameCN: '残月', image: MAP_IMAGES.brokenMoon, size: 'medium', desc: '月球殖民地，滑索网络连接各个区域', tips: '滑索是双刃剑，滑太快会撞进敌阵' },
+]
 
 export const legends: ApexLegend[] = [
   {
