@@ -2,7 +2,7 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { posts, categories } from '../data/posts'
-import { legends, weapons } from '../data/game-data'
+import { legends, weapons, HERO_KEY_ART } from '../data/game-data'
 
 const route = useRoute()
 const router = useRouter()
@@ -55,8 +55,11 @@ const classLabel: Record<string, string> = {
   <div class="home-page">
     <!-- ===== HERO SECTION ===== -->
     <section class="hero-section">
+      <div class="hero-bg-image" :style="{ backgroundImage: `url(${HERO_KEY_ART})` }"></div>
+      <div class="hero-bg-overlay"></div>
+
       <div class="hero-particles">
-        <span v-for="i in 20" :key="i" class="particle" :style="{
+        <span v-for="i in 15" :key="i" class="particle" :style="{
           left: Math.random() * 100 + '%',
           '--dx': (Math.random() - 0.5) * 200 + 'px',
           '--dy': -(Math.random() * 200 + 50) + 'px',
@@ -148,8 +151,9 @@ const classLabel: Record<string, string> = {
 
         <div class="legends-grid">
           <div v-for="legend in legends" :key="legend.name" class="legend-card glass-card apex-corner">
-            <div class="lc-header" :style="{ background: `linear-gradient(135deg, ${legend.color}22, ${legend.color}08)` }">
-              <span class="lc-icon" :style="{ color: legend.color, textShadow: `0 0 20px ${legend.color}44` }">
+            <div class="lc-header" :style="{ backgroundImage: `url(${legend.banner})`, backgroundSize: 'cover', backgroundPosition: 'center' }">
+              <div class="lc-header-overlay" :style="{ background: `linear-gradient(180deg, ${legend.color}88 0%, ${legend.color}22 100%)` }"></div>
+              <span class="lc-icon" :style="{ color: '#fff', textShadow: `0 0 20px ${legend.color}` }">
                 {{ legend.icon }}
               </span>
               <span class="lc-diff" :style="{ color: legend.color }">
@@ -309,11 +313,26 @@ const classLabel: Record<string, string> = {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background:
-    radial-gradient(ellipse at 30% 40%, rgba(255, 94, 26, 0.1) 0%, transparent 50%),
-    radial-gradient(ellipse at 70% 60%, rgba(255, 165, 0, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 80%, rgba(0, 180, 255, 0.04) 0%, transparent 40%),
-    linear-gradient(180deg, #06060f 0%, #0a0a0f 100%);
+  background: #06060f;
+}
+
+.hero-bg-image {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  animation: fadeIn 1.2s ease;
+}
+
+.hero-bg-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(6, 6, 15, 0.4) 0%,
+    rgba(6, 6, 15, 0.55) 40%,
+    rgba(10, 10, 15, 0.85) 80%,
+    #0a0a0f 100%
+  );
 }
 
 .hero-particles {
@@ -501,6 +520,17 @@ const classLabel: Record<string, string> = {
 .lc-header {
   display: flex; align-items: center; justify-content: space-between;
   padding: 20px 18px 12px;
+  height: 130px;
+  position: relative;
+  overflow: hidden;
+}
+
+.lc-header-overlay {
+  position: absolute; inset: 0;
+}
+
+.lc-header .lc-icon {
+  position: relative; z-index: 1;
 }
 
 .lc-icon { font-size: 44px; transition: transform 0.3s; }

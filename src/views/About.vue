@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { posts, categories } from '../data/posts'
-import { legends } from '../data/game-data'
+import { legends, RED_GRIT_BG } from '../data/game-data'
 
 const mainLegends = legends.slice(0, 3)
 </script>
@@ -9,7 +9,8 @@ const mainLegends = legends.slice(0, 3)
   <div class="about-page">
     <!-- Hero -->
     <div class="about-hero">
-      <div class="about-hero-bg"></div>
+      <div class="about-hero-bg" :style="{ backgroundImage: `url(${RED_GRIT_BG})` }"></div>
+      <div class="about-hero-overlay"></div>
       <div class="about-hero-inner">
         <div class="avatar-ring">
           <div class="avatar-inner">
@@ -200,10 +201,14 @@ const mainLegends = legends.slice(0, 3)
 
 .about-hero-bg {
   position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse at 50% 30%, rgba(255, 94, 26, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 30% 70%, rgba(255, 165, 0, 0.05) 0%, transparent 40%),
-    linear-gradient(180deg, #06060f, #0a0a0f);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.about-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(6, 6, 15, 0.55) 0%, rgba(10, 10, 15, 0.8) 50%, #0a0a0f 100%);
 }
 
 .about-hero-inner { position: relative; z-index: 1; }

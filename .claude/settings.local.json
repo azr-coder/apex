@@ -4,7 +4,10 @@
       "Bash(npx vite *)",
       "Bash(curl -s http://localhost:5173)",
       "Bash(pkill -f \"vite\")",
-      "WebSearch"
+      "WebSearch",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(npx vue-tsc *)",
+      "Bash(npm run *)"
     ]
   }
 }

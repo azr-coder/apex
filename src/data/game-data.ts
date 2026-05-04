@@ -5,6 +5,8 @@ export interface ApexLegend {
   difficulty: 1 | 2 | 3
   icon: string
   color: string
+  image: string
+  banner: string
   abilities: { name: string; type: 'passive' | 'tactical' | 'ultimate'; desc: string }[]
   description: string
 }
@@ -18,6 +20,20 @@ export interface ApexWeapon {
   desc: string
 }
 
+const EA_CDN = 'https://media.contentapi.ea.com/content/dam/apex-legends'
+const LEGEND_WALLPAPER = `${EA_CDN}/images/2019/01/legends-concept-art/apex-concept-art-wallpaper`
+const LEGEND_BANNER = `${EA_CDN}/common/legends/apex-section-bg-legends`
+
+function legendImg(name: string) { return `${LEGEND_WALLPAPER}-${name}.jpg.adapt.crop16x9.1920w.jpg` }
+function bannerImg(name: string) { return `${LEGEND_BANNER}-${name}-xl.jpg.adapt.1920w.jpg` }
+
+// Official hero key art (group shot) — used as hero section background
+export const HERO_KEY_ART = `${EA_CDN}/common/apex-hero-medium-keyart-left-7x2-xl.jpg.adapt.crop7x2.1920w.jpg`
+
+// Texture backgrounds from official site
+export const TEXTURE_BG = `${EA_CDN}/common/apex-section-bg-beige-texture-xl.jpg.adapt.1920w.jpg`
+export const RED_GRIT_BG = `${EA_CDN}/common/apex-section-bg-red-grit-texture-xl.jpg.adapt.1920w.jpg`
+
 export const legends: ApexLegend[] = [
   {
     name: '恶灵',
@@ -26,6 +42,8 @@ export const legends: ApexLegend[] = [
     difficulty: 2,
     icon: '🌀',
     color: '#9B59B6',
+    image: legendImg('wraith'),
+    banner: bannerImg('wraith'),
     description: '跨维度散兵，能在战场上听到虚空中的声音。相位移动让她暂时遁入虚空躲避所有伤害。',
     abilities: [
       { name: '虚空之声', type: 'passive', desc: '危险临近时听到虚空中的声音警告' },
@@ -40,6 +58,8 @@ export const legends: ApexLegend[] = [
     difficulty: 1,
     icon: '🤖',
     color: '#3498DB',
+    image: legendImg('pathfinder'),
+    banner: bannerImg('pathfinder'),
     description: '乐观的前进侦察兵，用钩爪和滑索立体机动。精通立体作战，永远在寻找他的创造者。',
     abilities: [
       { name: '内部情报', type: 'passive', desc: '扫描侦查信标揭示下一个安全区位置' },
@@ -54,6 +74,8 @@ export const legends: ApexLegend[] = [
     difficulty: 1,
     icon: '🦅',
     color: '#E74C3C',
+    image: legendImg('bloodhound'),
+    banner: bannerImg('bloodhound'),
     description: '科技追踪者，用扫描揭示敌人的行踪。信奉万物之父和全灵之母。',
     abilities: [
       { name: '追踪者', type: 'passive', desc: '看到敌人留下的足迹和线索' },
@@ -68,6 +90,8 @@ export const legends: ApexLegend[] = [
     difficulty: 1,
     icon: '💉',
     color: '#2ECC71',
+    image: legendImg('lifeline'),
+    banner: bannerImg('lifeline'),
     description: '战斗医疗兵，在前线救死扶伤。她的无人机和复活护盾是团队的定心丸。',
     abilities: [
       { name: '战斗复活', type: 'passive', desc: '部署无人机复活队友，自己可以继续战斗' },
@@ -82,6 +106,8 @@ export const legends: ApexLegend[] = [
     difficulty: 1,
     icon: '🛡️',
     color: '#E67E22',
+    image: legendImg('gibraltar'),
+    banner: bannerImg('gibraltar'),
     description: '温柔巨人，用穹顶护盾保护队友。别被他的体型吓到，他是最可靠的防线。',
     abilities: [
       { name: '枪盾', type: 'passive', desc: '瞄准时展开枪盾吸收前方伤害' },
@@ -96,6 +122,8 @@ export const legends: ApexLegend[] = [
     difficulty: 1,
     icon: '⚡',
     color: '#1ABC9C',
+    image: legendImg('octane'),
+    banner: bannerImg('octane'),
     description: '极速肾上腺素瘾君子，用速度换取生命值。他跑得比子弹还快——差点。',
     abilities: [
       { name: '快速修复', type: 'passive', desc: '未受伤害时自动恢复生命值' },
